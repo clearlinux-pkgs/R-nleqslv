@@ -4,14 +4,14 @@
 #
 Name     : R-nleqslv
 Version  : 3.3.2
-Release  : 15
+Release  : 16
 URL      : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Summary  : Solve Systems of Nonlinear Equations
 Group    : Development/Tools
 License  : GPL-2.0+
-Requires: R-nleqslv-lib
-BuildRequires : clr-R-helpers
+Requires: R-nleqslv-lib = %{version}-%{release}
+BuildRequires : buildreq-R
 
 %description
 with a choice of global strategies such as line search and trust region.
@@ -35,11 +35,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526571386
+export SOURCE_DATE_EPOCH=1552779117
 
 %install
+export SOURCE_DATE_EPOCH=1552779117
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1526571386
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -57,9 +57,9 @@ echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library nleqslv
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
-echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " > ~/.R/Makevars
-echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " >> ~/.R/Makevars
-echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512  " >> ~/.R/Makevars
+echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --preclean --install-tests --no-test-load --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library nleqslv
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx512 ; mv $i.avx512 ~/.stash/; done
 echo "CFLAGS = $CFLAGS -ftree-vectorize " > ~/.R/Makevars
@@ -74,8 +74,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library nleqslv|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  nleqslv || :
 
 
 %files
@@ -116,7 +115,67 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/nleqslv/iterationreport/dspwldog.R
 /usr/lib64/R/library/nleqslv/iterationreport/dspwldog.Rout
 /usr/lib64/R/library/nleqslv/iterationreport/dspwldog.Rout.txt
-/usr/lib64/R/library/nleqslv/libs/symbols.rds
+/usr/lib64/R/library/nleqslv/tests/brdban.R
+/usr/lib64/R/library/nleqslv/tests/brdban.Rout
+/usr/lib64/R/library/nleqslv/tests/brdban.Rout.save
+/usr/lib64/R/library/nleqslv/tests/brdbanded.R
+/usr/lib64/R/library/nleqslv/tests/brdbanded.Rout
+/usr/lib64/R/library/nleqslv/tests/brdbanded.Rout.save
+/usr/lib64/R/library/nleqslv/tests/brdtri.R
+/usr/lib64/R/library/nleqslv/tests/brdtri.Rout
+/usr/lib64/R/library/nleqslv/tests/brdtri.Rout.save
+/usr/lib64/R/library/nleqslv/tests/brdtrijac.R
+/usr/lib64/R/library/nleqslv/tests/brdtrijac.Rout
+/usr/lib64/R/library/nleqslv/tests/brdtrijac.Rout.save
+/usr/lib64/R/library/nleqslv/tests/chquad.R
+/usr/lib64/R/library/nleqslv/tests/chquad.Rout
+/usr/lib64/R/library/nleqslv/tests/chquad.Rout.save
+/usr/lib64/R/library/nleqslv/tests/control-try.R
+/usr/lib64/R/library/nleqslv/tests/control-try.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnex.R
+/usr/lib64/R/library/nleqslv/tests/dslnex.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnex.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnexCN.R
+/usr/lib64/R/library/nleqslv/tests/dslnexCN.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnexCN.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnexHook.R
+/usr/lib64/R/library/nleqslv/tests/dslnexHook.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnexHook.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnexauto.R
+/usr/lib64/R/library/nleqslv/tests/dslnexauto.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnexauto.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnexjacout.R
+/usr/lib64/R/library/nleqslv/tests/dslnexjacout.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnexjacout.Rout.save
+/usr/lib64/R/library/nleqslv/tests/dslnexscaled.R
+/usr/lib64/R/library/nleqslv/tests/dslnexscaled.Rout
+/usr/lib64/R/library/nleqslv/tests/dslnexscaled.Rout.save
+/usr/lib64/R/library/nleqslv/tests/singular1.R
+/usr/lib64/R/library/nleqslv/tests/singular1.Rout
+/usr/lib64/R/library/nleqslv/tests/singular1.Rout.save
+/usr/lib64/R/library/nleqslv/tests/singular2.R
+/usr/lib64/R/library/nleqslv/tests/singular2.Rout
+/usr/lib64/R/library/nleqslv/tests/singular2.Rout.save
+/usr/lib64/R/library/nleqslv/tests/singular3.R
+/usr/lib64/R/library/nleqslv/tests/singular3.Rout
+/usr/lib64/R/library/nleqslv/tests/singular3.Rout.save
+/usr/lib64/R/library/nleqslv/tests/trig.R
+/usr/lib64/R/library/nleqslv/tests/trig.Rout
+/usr/lib64/R/library/nleqslv/tests/trig.Rout.save
+/usr/lib64/R/library/nleqslv/tests/tscalargrad.R
+/usr/lib64/R/library/nleqslv/tests/tscalargrad.Rout.save
+/usr/lib64/R/library/nleqslv/tests/xcutlip1p2.R
+/usr/lib64/R/library/nleqslv/tests/xcutlip1p2.Rout
+/usr/lib64/R/library/nleqslv/tests/xcutlip1p2.Rout.save
+/usr/lib64/R/library/nleqslv/tests/xnames.R
+/usr/lib64/R/library/nleqslv/tests/xnames.Rout
+/usr/lib64/R/library/nleqslv/tests/xnames.Rout.save
+/usr/lib64/R/library/nleqslv/tests/xsearchzeros.R
+/usr/lib64/R/library/nleqslv/tests/xsearchzeros.Rout
+/usr/lib64/R/library/nleqslv/tests/xsearchzeros.Rout.save
+/usr/lib64/R/library/nleqslv/tests/xtestnslv.R
+/usr/lib64/R/library/nleqslv/tests/xtestnslv.Rout
+/usr/lib64/R/library/nleqslv/tests/xtestnslv.Rout.save
 
 %files lib
 %defattr(-,root,root,-)
