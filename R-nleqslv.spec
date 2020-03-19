@@ -4,7 +4,7 @@
 #
 Name     : R-nleqslv
 Version  : 3.3.2
-Release  : 23
+Release  : 24
 URL      : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Summary  : Solve Systems of Nonlinear Equations
