@@ -4,7 +4,7 @@
 #
 Name     : R-nleqslv
 Version  : 3.3.2
-Release  : 30
+Release  : 31
 URL      : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/nleqslv_3.3.2.tar.gz
 Summary  : Solve Systems of Nonlinear Equations
@@ -36,10 +36,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1589527940
+export SOURCE_DATE_EPOCH=1619365367
 
 %install
-export SOURCE_DATE_EPOCH=1589527940
+export SOURCE_DATE_EPOCH=1619365367
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -182,4 +182,3 @@ R CMD check --no-manual --no-examples --no-codoc nleqslv || :
 %defattr(-,root,root,-)
 /usr/lib64/R/library/nleqslv/libs/nleqslv.so
 /usr/lib64/R/library/nleqslv/libs/nleqslv.so.avx2
-/usr/lib64/R/library/nleqslv/libs/nleqslv.so.avx512
